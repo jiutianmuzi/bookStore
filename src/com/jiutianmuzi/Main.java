@@ -48,7 +48,8 @@ public class Main {
                 "editBook: 3\n" +
                 "deleteBook: 4\n" +
                 "buyBook: 5\n" +
-                "exit System: 6");
+                "exit System: 6\n" +
+                "please input your selection(1-6):");
 
     }
 

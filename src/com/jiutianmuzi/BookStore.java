@@ -45,9 +45,23 @@ public class BookStore {
         if (newBook.getTitle() != null) {
             books[index].setTitle(newBook.getTitle());
         }
-
         if (newBook.getAuthor() != null) {
-
+            books[index].setAuthor(newBook.getAuthor());
+        }
+        if (newBook.getPrice() != 0){
+            books[index].setPrice(newBook.getPrice());
+        }
+        if(newBook.getStock()!=0){
+            books[index].setStock(newBook.getStock());
+        }
+        if(newBook.getChapterList() != null){
+            books[index].setChapterList(newBook.getChapterList());
+        }
+        if (newBook.getCopyright() !=null){
+            books[index].setCopyright(newBook.getCopyright());
+        }
+        if(newBook.getPublisher()!=null){
+            books[index].setPublisher(newBook.getPublisher());
         }
     }
 
@@ -64,7 +78,6 @@ public class BookStore {
             books[index].setStock(books[index].getStock() - count);
         }
         return books[index].getPrice() * count * (1 + Book.getGSTRate());
-
     }
 
 
