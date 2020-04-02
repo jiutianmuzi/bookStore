@@ -1,6 +1,8 @@
 package com.jiutianmuzi;
 
+import java.util.Arrays;
 import java.util.Scanner;
+
 
 public class Book implements Comparable<Book> {
 
@@ -11,7 +13,7 @@ public class Book implements Comparable<Book> {
     private String[] chapterList;
     private int stock;
     private double price;
-    private static double gstRate;
+    private static double gstRate = 0.01;
 
     public Book() {
     }
@@ -112,10 +114,7 @@ public class Book implements Comparable<Book> {
         }
     }
 
-    public String toString() {
-        String str = "";
-        return str;
-    }
+
 
     public double buy(int amount) {
         if (amount > 0 && amount <= getStock()) {
@@ -137,12 +136,24 @@ public class Book implements Comparable<Book> {
 
     @Override
     public int compareTo(Book o) {
-        int result = this.title.compareTo(o.getTitle())
+        int result = this.title.compareTo(o.getTitle());
         if (result == 0) {
             return this.author.compareTo(o.getAuthor());
         }
         return result;
     }
+
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", copyright='" + copyright + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", chapterList=" + Arrays.toString(chapterList) +
+                ", stock=" + stock +
+                ", price=" + price +
+                '}';
+    }
 }
-
-
