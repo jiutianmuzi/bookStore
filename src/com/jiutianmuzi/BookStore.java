@@ -1,5 +1,7 @@
 package com.jiutianmuzi;
 
+import java.util.Scanner;
+
 public class BookStore {
 
     private static int capacity = 100;
@@ -41,7 +43,7 @@ public class BookStore {
         }
     }
 
-    public void editBook(int index, Book newBook) {
+    public static void editBook(int index, Book newBook) {
         if (newBook.getTitle() != null) {
             books[index].setTitle(newBook.getTitle());
         }
@@ -63,14 +65,38 @@ public class BookStore {
         if(newBook.getPublisher()!=null){
             books[index].setPublisher(newBook.getPublisher());
         }
+
+        insertionSort();
     }
 
-    public void deleteBook(int index) {
-
-
+    public static void deleteBook(int index) throws Exception {
+        if(index >= 0 &&  index < lastIndex ){
+            for (int i = index; i <= lastIndex - 2 ; i++) {
+                books[i] = books[i+1];
+            }
+            lastIndex--;
+        }else {
+            throw new Exception("您要删除的数不存在");
+        }
     }
 
     public static Double buyBook(int index, int count) throws Exception {
+
+        if (books[index].getStock() < count) {
+            throw new Exception("该书库存不足，请下次够买");
+        } else {
+            books[index].setStock(books[index].getStock() - count);
+        }
+        return books[index].getPrice() * count * (1 + Book.getGSTRate());
+    }
+
+    public static Double buyBook(String title, String author,int count) throws Exception {
+
+        int index = binarySearch(title,author);
+
+        if(-1 == index){
+            throw new Exception("该书不存在");
+        }
 
         if (books[index].getStock() < count) {
             throw new Exception("该书库存不足，请下次够买");
@@ -97,7 +123,11 @@ public class BookStore {
         }
     }
 
-    public static int binarySearch(Book target) {
+    public static int binarySearch(String title,String author) {
+        Book target = new Book();
+        target.setTitle(title);
+        target.setAuthor(author);
+
         int l = 0;
         int r = lastIndex - 1;
         while (l <= r) {

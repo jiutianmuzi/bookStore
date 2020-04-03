@@ -58,11 +58,8 @@ public class Main {
         String title = input.nextLine();
         System.out.println("please input author:");
         String author = input.nextLine();
-        Book target = new Book();
-        target.setTitle(title);
-        target.setAuthor(author);
 
-        int index = BookStore.binarySearch(target);
+        int index = BookStore.binarySearch(title,author);
         if (-1 == index) {
             System.out.println("您要查找的书不存在");
         } else {
@@ -102,23 +99,68 @@ public class Main {
     }
 
     private static void editBook() {
+        System.out.println("please input book index:");
+        int index = Integer.parseInt(input.nextLine());
 
+        System.out.println("please input title:");
+        String title = input.nextLine();
+        System.out.println("please input author:");
+        String author = input.nextLine();
+        System.out.println("please input chapters separate by blank :");
+        String[] chapterList = input.nextLine().split(" ");
+        System.out.println("please input copyright:");
+        String copyright = input.nextLine();
+        System.out.println("please input publisher:");
+        String publisher = input.nextLine();
+        System.out.println("please input price:");
+        Double price = input.nextDouble();
+        System.out.println("please input gstRate:");
+        Double gstRate = input.nextDouble();
+        System.out.println("please input stock:");
+        int stock = input.nextInt();
+
+        Book newBook = new Book(title, author, copyright, publisher, chapterList, stock, price);
+
+        BookStore.editBook(index,newBook);
+        mainUi();
     }
 
 
     private static void deleteBook() {
+        System.out.println("please input title:");
+        String title = input.nextLine();
+
+        System.out.println("please input author:");
+        String author = input.nextLine();
+
+        int index = BookStore.binarySearch(title,author);
+        if (-1 == index) {
+            System.out.println("您要删删除的书不存在");
+        } else {
+            try {
+                BookStore.deleteBook(index);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        mainUi();
 
     }
 
 
     private static void buyBook() {
-        System.out.println("please input book index:");
-        int index = Integer.parseInt(input.nextLine());
+        System.out.println("please input title:");
+        String title = input.nextLine();
+
+        System.out.println("please input author:");
+        String author = input.nextLine();
+
         System.out.println("please input purchase num:");
         int count = Integer.parseInt(input.nextLine());
 
         try {
-            System.out.println("您本次购买需要付款"+BookStore.buyBook(index,count)+"元");
+            System.out.println("您本次购买需要付款"+BookStore.buyBook(title,author,count)+"元");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
